@@ -1,8 +1,29 @@
+Open AndroidManifest.xml on GitHub, click the pencil icon, and replace the entire contents with this:
+
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
- <application android:label="TrimCheck" android:icon="@drawable/trimcheck_icon" android:roundIcon="@drawable/trimcheck_icon" android:theme="@android:style/Theme.Material.Light.NoActionBar" android:usesCleartextTraffic="false" android:allowBackup="false">
-  <activity android:name=".MainActivity" android:exported="true">
-   <intent-filter><action android:name="android.intent.action.MAIN"/><category android:name="android.intent.category.LAUNCHER"/></intent-filter>
-  </activity>
- </application>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:label="TrimCheck"
+        android:icon="@drawable/trimcheck_icon"
+        android:roundIcon="@drawable/trimcheck_icon"
+        android:theme="@android:style/Theme.Material.Light.NoActionBar"
+        android:usesCleartextTraffic="false"
+        android:allowBackup="false">
+
+        <activity
+            android:name=".MainActivity"
+            android:exported="true">
+
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+
+        </activity>
+
+    </application>
+
 </manifest>
