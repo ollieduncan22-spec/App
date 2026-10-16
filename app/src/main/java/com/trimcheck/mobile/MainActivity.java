@@ -38,9 +38,13 @@ public class MainActivity extends Activity {
         setContentView(web);
        web.loadUrl("https://ollieduncan22-spec.github.io/Trimcheck-Test/");
     }
-    @Override public void onBackPressed() {
-        if (web != null) web.evaluateJavascript("(function(){var b=document.querySelector('[data-go=home]');if(b && !document.getElementById('home').classList.contains('hidden'))return false;if(b){b.click();return true}return false})()", null);
-        else super.onBackPressed();
+    @Override
+public void onBackPressed() {
+    if (web != null && web.canGoBack()) {
+        web.goBack();
+    } else {
+        super.onBackPressed();
     }
+}
     @Override protected void onDestroy() { if (web != null) {web.destroy();web=null;} super.onDestroy(); }
 }
