@@ -36,7 +36,7 @@ public class MainActivity extends Activity {
             }
         }, "TrimCheckAndroid");
         setContentView(web);
-        web.loadUrl("file:///android_asset/index.html");
+       web.loadUrl("https://ollieduncan22-spec.github.io/Trimcheck-Test/");
     }
     @Override public void onBackPressed() {
         if (web != null) web.evaluateJavascript("(function(){var b=document.querySelector('[data-go=home]');if(b && !document.getElementById('home').classList.contains('hidden'))return false;if(b){b.click();return true}return false})()", null);
