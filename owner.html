@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>TrimCheck | Owner Portal v3</title>
+<title>SpecTrim | Owner Portal v3</title>
 <style>
 :root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#eaf2ff;background:#08172b;color-scheme:dark}
 *{box-sizing:border-box}
@@ -52,11 +52,29 @@ main{padding:0 12px}
 h1{font-size:22px}
 }
 </style>
-</head>
+<link rel="icon" type="image/png" href="assets/spectrim-48.png"><link rel="apple-touch-icon" href="assets/spectrim-192.png"><style id="spectrim-premium-final">
+:root{color:#F5F2EC!important;background:#0B0D0F!important;color-scheme:dark}
+body{background:#0B0D0F!important;color:#F5F2EC!important}
+header{background:linear-gradient(115deg,#111315,#202328)!important;border-bottom:1px solid #6D5739!important}
+h1 span{color:#D6AD70!important}
+.panel,.tile{background:#1B1E21!important;border-color:#4B4135!important;box-shadow:0 9px 28px #0002}
+.muted,.hint{color:#B6B0A7!important}
+button{background:#D6AD70!important;color:#151617!important}
+button.secondary{background:#353331!important;color:#F5F2EC!important}
+button.danger{background:#79464A!important;color:#FFF!important}
+input,select{background:#101214!important;color:#F5F2EC!important;border-color:#655844!important}
+button:focus-visible,input:focus-visible,select:focus-visible{outline-color:#D6AD70!important}
+.record,.staff-item,.details{border-color:#4B4135!important}
+.details{background:#141618!important}
+.tag{background:#3C3328!important;color:#E7CB9C!important}
+.tag.off{background:#493438!important;color:#FFCBCB!important}
+</style><style id="spectrim-luxury-correction">.st-portal-brand{display:flex;align-items:center;gap:15px}.st-portal-brand img{width:57px;height:57px;object-fit:contain;border:1px solid #665139;border-radius:12px}.st-portal-brand h1{margin:0;font-size:28px;font-weight:600;letter-spacing:-.8px}.st-portal-brand h1 span,.st-portal-brand .brand span{color:#D6AD70}.st-portal-sub{font-size:9px;letter-spacing:2px;color:#C7B497;margin-top:5px}header{background:linear-gradient(115deg,#101214,#24211E)!important;border-bottom:1px solid #665139!important}button:focus-visible,input:focus-visible{outline:2px solid #D6AD70!important;outline-offset:2px}@media(max-width:480px){.st-portal-brand img{width:47px;height:47px}.st-portal-sub{font-size:8px;letter-spacing:1px}}</style><style id="spectrim-exact-brand">.st-portal-brand img{object-fit:contain!important;padding:3px!important;background:#101112!important}.st-portal-brand .brand,.st-portal-brand h1{font-weight:500!important;letter-spacing:-1px!important}</style><style id="spectrim-transparent-logo-fix">
+.st-portal-brand img,.st-portal-brand>img{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;outline:none!important;padding:0!important;object-fit:contain!important}
+</style><link rel="icon" type="image/png" href="assets/favicon-st-v2.png"><style id="spectrim-polish-v2">.st-portal-brand img{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important;padding:0!important;object-fit:contain!important;width:70px!important;height:auto!important}.st-portal-brand{gap:13px!important}@media(max-width:480px){.st-portal-brand img{width:54px!important}}</style></head>
 <body>
 
 <header>
-<h1>Trim<span>Check</span> · Owner Portal</h1>
+<div class="st-portal-brand"><img src="assets/spectrim-st-clear-v2.png" alt="SpecTrim ST emblem"><div><h1>Spec<span>Trim</span></h1><div class="st-portal-sub">OWNER PORTAL · VEHICLE SPECIFICATIONS. SIMPLIFIED.</div></div></div>
 <div class="muted">Platform administration · v3</div>
 </header>
 
@@ -87,7 +105,7 @@ h1{font-size:22px}
 <h2>Platform overview</h2>
 <div id="identity" class="muted"></div>
 </div>
-<button id="signOut" class="secondary">Sign out</button>
+<div class="stack"><button id="changePassword" class="secondary">Change password</button><button id="signOut" class="secondary">Sign out</button></div>
 </div>
 
 <div class="grid">
@@ -176,7 +194,7 @@ function message(id,msg,error=false){
  $(id).className='status '+(error?'error':'ok');
 }
 function connect(){
- const url=localStorage.getItem('tc_owner_url'),key=localStorage.getItem('tc_owner_key');
+ const url='https://idkkqpxssxxtznddrujb.supabase.co',key='sb_publishable_zxLgavOcB9A8EIcOxoCsKQ_tRWVJKou';
  if(!url||!key){show('config');status('Connection setup required.');return false}
  try{
   client=createClient(url,key,{auth:{persistSession:true,autoRefreshToken:true}});
@@ -201,18 +219,26 @@ $('signIn').onclick=async()=>{
   await checkOwner();
  }catch(e){status(e.message,true)}
 };
+$('changePassword').onclick=async()=>{
+ const password=prompt('New password (at least 12 characters):');
+ if(password===null)return;
+ if(password.length<12){alert('Use at least 12 characters.');return;}
+ if(prompt('Confirm new password:')!==password){alert('Passwords do not match.');return;}
+ const {error}=await client.auth.updateUser({password});
+ alert(error?'Password change failed: '+error.message:'Password updated successfully.');
+};
 $('signOut').onclick=async()=>{
  await client.auth.signOut();
- owner=null;show('login');status('Signed out.');
+  localStorage.removeItem('trimcheck_auth_session_v1');
+  owner=null;location.replace('./index.html');
 };
 async function checkOwner(){
  const {data:{user},error}=await client.auth.getUser();
- if(error||!user){show('login');status('Please sign in.');return}
+ if(error||!user){location.replace('./index.html');return}
  const {data:profile,error:pe}=await client.from('profiles').select('role,active').eq('user_id',user.id).maybeSingle();
  if(pe){show('login');status('Cannot verify permissions: '+pe.message,true);return}
  if(!profile||profile.role!=='owner'||profile.active!==true){
-  await client.auth.signOut();show('login');
-  status('Access denied: active owner account required.',true);return;
+  await client.auth.signOut();localStorage.removeItem('trimcheck_auth_session_v1');location.replace('./index.html');return;
  }
  owner=user;show('dashboard');
  $('identity').textContent=user.email+' · Active platform owner';
@@ -528,7 +554,17 @@ async function loadStaff(){
 }
 $('refreshStaff').onclick=loadStaff;
 $('refresh').onclick=load;
-if(connect())checkOwner();
+async function startUnified(){
+ if(!connect())return;
+ try{
+  const saved=JSON.parse(localStorage.getItem('trimcheck_auth_session_v1')||'null');
+  if(!saved?.access_token||!saved?.refresh_token){location.replace('./index.html');return;}
+  const {error}=await client.auth.setSession({access_token:saved.access_token,refresh_token:saved.refresh_token});
+  if(error)throw error;
+  await checkOwner();
+ }catch(e){status('Session expired. Returning to sign in.',true);location.replace('./index.html');}
+}
+startUnified();
 </script>
 </body>
 </html>

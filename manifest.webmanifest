@@ -1,0 +1,23 @@
+{
+  "name": "SpecTrim | Vehicle Specifications",
+  "short_name": "SpecTrim",
+  "description": "Premium vehicle specification and trim matching for dealerships",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0B0D0F",
+  "theme_color": "#0B0D0F",
+  "icons": [
+    {
+      "src": "assets/spectrim-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/spectrim-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
