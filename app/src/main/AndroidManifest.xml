@@ -1,12 +1,13 @@
+
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:label="TrimCheck"
-        android:icon="@drawable/trimcheck_icon"
-        android:roundIcon="@drawable/trimcheck_icon"
+        android:label="SpecTrim"
+        android:icon="@drawable/spectrim_icon"
+        android:roundIcon="@drawable/spectrim_icon"
         android:theme="@android:style/Theme.Material.Light.NoActionBar"
         android:usesCleartextTraffic="false"
         android:allowBackup="false">
@@ -25,3 +26,4 @@
     </application>
 
 </manifest>
+
