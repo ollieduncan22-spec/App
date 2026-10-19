@@ -1,0 +1,14 @@
+plugins { id 'com.android.application' }
+android {
+    namespace 'com.trimcheck.mobile'
+    compileSdk 35
+    defaultConfig {
+        applicationId 'com.trimcheck.mobile'
+        minSdk 26
+        targetSdk 35
+        versionCode 1
+        versionName '0.5.0-demo'
+    }
+    buildTypes { release { minifyEnabled false } }
+    compileOptions { sourceCompatibility JavaVersion.VERSION_17; targetCompatibility JavaVersion.VERSION_17 }
+}

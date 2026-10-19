@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<title>SpecTrim | Owner Dashboard</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#eaf2ff;background:#08172b;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0}
+header{background:#0d2545;border-bottom:1px solid #29476a;padding:20px max(18px,5%)}
+h1{margin:0;font-size:25px}
+h1 span{color:#2799ed}
+main{max-width:1100px;margin:24px auto;padding:0 16px}
+.muted{color:#a7bad0}
+.small{font-size:13px}
+.panel,.tile{background:#112640;border:1px solid #34506c;border-radius:15px;padding:20px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px}
+.tile{margin:0}
+.tile strong{font-size:27px;display:block}
+button{background:#1685db;color:#fff;border:0;border-radius:9px;padding:11px 15px;font-weight:700;cursor:pointer}
+button.secondary{background:#31465e}
+button.danger{background:#84404b}
+button:disabled{opacity:.5;cursor:wait}
+input,select{width:100%;background:#081b32;color:#fff;border:1px solid #6a829c;border-radius:8px;padding:11px;margin:7px 0 13px}
+label{display:block;font-weight:650}
+.hidden{display:none!important}
+.error{color:#ffb3b3}
+.ok{color:#9fe0c0}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.stack{display:flex;gap:9px;flex-wrap:wrap}
+.record{border-top:1px solid #34506c;padding:15px 0}
+.record:first-child{border-top:0}
+.tag{display:inline-block;background:#254462;padding:5px 9px;border-radius:20px;font-size:12px}
+.tag.off{background:#493744;color:#ffd9dd}
+.details{margin:12px 0 0;padding:14px;border:1px solid #34506c;border-radius:10px;background:#0b2038}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.status{white-space:pre-wrap}
+h2{margin:0 0 13px}
+h3{margin:8px 0}
+summary{cursor:pointer;font-weight:700;padding:7px 0}
+button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #79c3ff;outline-offset:2px}
+.hint{font-size:13px;color:#a7bad0;margin:-5px 0 12px}
+.staff-table{overflow-wrap:anywhere}
+.staff-item{border-top:1px solid #34506c;padding:12px 0}
+@media(max-width:600px){
+header{padding:16px}
+main{padding:0 12px}
+.panel{padding:16px}
+.grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+h1{font-size:22px}
+}
+</style>
+<link href="assets/spectrim-48.png" rel="icon" type="image/png"/><link href="assets/spectrim-192.png" rel="apple-touch-icon"/><style id="spectrim-premium-final">
+:root{color:#F5F2EC!important;background:#0B0D0F!important;color-scheme:dark}
+body{background:#0B0D0F!important;color:#F5F2EC!important}
+header{background:linear-gradient(115deg,#111315,#202328)!important;border-bottom:1px solid #6D5739!important}
+h1 span{color:#D6AD70!important}
+.panel,.tile{background:#1B1E21!important;border-color:#4B4135!important;box-shadow:0 9px 28px #0002}
+.muted,.hint{color:#B6B0A7!important}
+button{background:#D6AD70!important;color:#151617!important}
+button.secondary{background:#353331!important;color:#F5F2EC!important}
+button.danger{background:#79464A!important;color:#FFF!important}
+input,select{background:#101214!important;color:#F5F2EC!important;border-color:#655844!important}
+button:focus-visible,input:focus-visible,select:focus-visible{outline-color:#D6AD70!important}
+.record,.staff-item,.details{border-color:#4B4135!important}
+.details{background:#141618!important}
+.tag{background:#3C3328!important;color:#E7CB9C!important}
+.tag.off{background:#493438!important;color:#FFCBCB!important}
+</style><style id="spectrim-luxury-correction">.st-portal-brand{display:flex;align-items:center;gap:15px}.st-portal-brand img{width:57px;height:57px;object-fit:contain;border:1px solid #665139;border-radius:12px}.st-portal-brand h1{margin:0;font-size:28px;font-weight:600;letter-spacing:-.8px}.st-portal-brand h1 span,.st-portal-brand .brand span{color:#D6AD70}.st-portal-sub{font-size:9px;letter-spacing:2px;color:#C7B497;margin-top:5px}header{background:linear-gradient(115deg,#101214,#24211E)!important;border-bottom:1px solid #665139!important}button:focus-visible,input:focus-visible{outline:2px solid #D6AD70!important;outline-offset:2px}@media(max-width:480px){.st-portal-brand img{width:47px;height:47px}.st-portal-sub{font-size:8px;letter-spacing:1px}}</style><style id="spectrim-exact-brand">.st-portal-brand img{object-fit:contain!important;padding:3px!important;background:#101112!important}.st-portal-brand .brand,.st-portal-brand h1{font-weight:500!important;letter-spacing:-1px!important}</style><style id="spectrim-transparent-logo-fix">
+.st-portal-brand img,.st-portal-brand>img{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;outline:none!important;padding:0!important;object-fit:contain!important}
+</style><link href="assets/favicon-st-v2.png" rel="icon" type="image/png"/><style id="spectrim-polish-v2">.st-portal-brand img{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;filter:none!important;padding:0!important;object-fit:contain!important;width:70px!important;height:auto!important}.st-portal-brand{gap:13px!important}@media(max-width:480px){.st-portal-brand img{width:54px!important}}</style>
+<style id="spectrim-racing-green-2026">
+:root{--st-bg:#101912;--st-green:#20251F;--st-deep:#111b15;--st-card:#202b23;--st-sage:#8C9B86;--st-ivory:#EAE7DD;--st-bronze:#B39B78;--st-border:#465448;color-scheme:dark!important;background:var(--st-bg)!important;color:var(--st-ivory)!important;scroll-behavior:smooth}
+body{background:radial-gradient(ellipse at 75% -10%,#293b2c 0%,#101912 48%,#0d150f 100%)!important;color:var(--st-ivory)!important;font-family:Inter,system-ui,-apple-system,'Segoe UI',sans-serif}
+header{background:linear-gradient(115deg,#152219,#202a20)!important;border-bottom:1px solid #465448!important;padding:20px max(22px,4%)!important;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.st-portal-brand h1{font-size:30px!important;letter-spacing:.10em!important;font-weight:600!important;text-transform:uppercase}.st-portal-brand h1 span{color:var(--st-bronze)!important}.st-portal-sub{color:#b8c2b2!important;letter-spacing:2px!important}.st-portal-brand img{max-height:68px}
+main{max-width:1500px;margin:28px auto;padding:0 24px}
+.panel,.tile{background:linear-gradient(145deg,#243127,#1b261e)!important;border:1px solid var(--st-border)!important;box-shadow:0 12px 30px #050d0733!important;border-radius:16px!important}
+.panel{padding:26px!important}.tile{padding:23px!important;position:relative;overflow:hidden}.tile:before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--st-bronze)}
+.tile strong{font-size:34px;letter-spacing:-1px;color:#f3f0e6}.tile .muted{text-transform:uppercase;letter-spacing:.10em;font-size:11px}
+h2{font-size:21px;font-weight:600;letter-spacing:-.02em}h3{font-weight:600}.muted,.hint{color:#b5c0b1!important}
+button{background:var(--st-sage)!important;color:#111d14!important;border:1px solid #a5b19e!important;border-radius:10px!important;padding:11px 17px!important;font-weight:700!important;transition:background .15s,transform .15s}
+button:hover:not(:disabled){background:#a8b5a0!important;transform:translateY(-1px)}button.secondary{background:#2b382e!important;color:var(--st-ivory)!important;border-color:#596b59!important}button.danger{background:#684547!important;color:#fff!important;border-color:#895b5c!important}
+input,select{background:#121d16!important;color:var(--st-ivory)!important;border:1px solid #647361!important;border-radius:10px!important;padding:12px!important}input:focus,select:focus{border-color:var(--st-bronze)!important;outline:2px solid #b39b7855!important}input[type=checkbox]{accent-color:var(--st-sage)}
+.record,.staff-item,.details{border-color:var(--st-border)!important}.details{background:#19251c!important}.tag{background:#344736!important;color:#e5ecdd!important}.tag.off{background:#533a3d!important;color:#ffdfdf!important}
+.owner-layout{display:grid;grid-template-columns:215px minmax(0,1fr);gap:22px;align-items:start}.owner-sidebar{position:sticky;top:20px;background:#17241a;border:1px solid var(--st-border);border-radius:16px;padding:20px 12px;min-height:390px}.side-kicker{color:var(--st-bronze);font-size:10px;letter-spacing:.16em;font-weight:700;padding:9px 12px 20px}.side-link{display:block;text-decoration:none;color:#e5eadf;padding:14px 12px;border-radius:10px;font-size:14px;margin-bottom:5px}.side-link:hover,.side-link:focus-visible{background:#394b3b;color:#fff}.side-foot{margin:32px 12px 4px;color:#a9b6a6;letter-spacing:.12em;font-size:10px}.side-foot span{color:var(--st-bronze)}.owner-content{min-width:0}.overview-head{background:linear-gradient(110deg,#2a3b2e,#1c291f)!important}.grid{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:18px}.connection-panel{max-width:calc(1500px - 260px);margin-left:auto}.status{overflow-wrap:anywhere}
+@media(max-width:1050px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.owner-layout{grid-template-columns:175px minmax(0,1fr)}}
+@media(max-width:720px){header{padding:15px!important}main{padding:0 12px;margin:16px auto}.owner-layout{display:block}.owner-sidebar{position:static;min-height:0;display:flex;flex-wrap:wrap;gap:5px;margin-bottom:16px;padding:12px}.side-kicker,.side-foot{display:none}.side-link{font-size:12px;padding:10px;margin:0}.panel{padding:17px!important}.grid{gap:9px}.tile{padding:16px!important}.tile strong{font-size:26px}.connection-panel{max-width:none}.st-portal-brand h1{font-size:23px!important}}
+@media(max-width:360px){.grid{grid-template-columns:1fr}}
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><style id="spectrim-design-system">
+/* SpecTrim premium consistency pass - Source Sans 3 */
+
+:root{--st-forest:#14241c;--st-panel:#1c3025;--st-bronze:#b69b73;--st-ivory:#f4f0e7;--st-stroke:rgba(182,155,115,.38);font-family:'Source Sans 3',Arial,sans-serif!important}
+html,body,button,input,select,textarea,table{font-family:'Source Sans 3',Arial,sans-serif!important}
+*,*::before,*::after{box-sizing:border-box}
+body{line-height:1.5;letter-spacing:.005em}
+h1,h2,h3,h4{line-height:1.22;letter-spacing:-.018em;font-weight:600}
+button,input,select,textarea{min-height:40px;line-height:1.35}
+button{font-weight:600;letter-spacing:.01em}
+img,svg{max-width:100%}
+.panel,.tile,.card,.stat,.metric,.feature-card,.stock-card,.section-card,.dashboard-card,.modal-content,.owner-sidebar,.sidebar,.nav-card{border-radius:5px!important;border:1px solid var(--st-stroke)!important;box-shadow:0 8px 25px rgba(0,0,0,.12)!important;min-width:0}
+.panel,.tile,.card,.feature-card,.stock-card,.section-card,.dashboard-card{padding:clamp(15px,2vw,24px)!important}
+.grid,.cards,.stats,.metrics{align-items:stretch;gap:14px}
+.grid>*,.cards>*,.stats>*,.metrics>*{min-width:0}
+.panel *, .tile *, .card *{overflow-wrap:break-word}
+input,select,textarea{border-radius:4px!important;max-width:100%}
+button{border-radius:4px!important}
+header{padding-top:max(16px,env(safe-area-inset-top))!important}
+@media(max-width:700px){.grid,.cards,.stats,.metrics{gap:10px}header{padding-top:calc(15px + env(safe-area-inset-top))!important}.panel,.tile,.card{padding:16px!important}}
+</style><style id="spectrim-header-identity">.spectrim-brand-mark{width:39px;height:39px;object-fit:contain;vertical-align:middle;margin-right:10px;flex:none}.spectrim-brand-lockup{display:inline-flex;align-items:center;gap:4px;min-width:0}.spectrim-brand-lockup span{font-family:'Source Sans 3',Arial,sans-serif;font-weight:600;letter-spacing:.02em;color:#f4f0e7}.spectrim-brand-lockup img{background:transparent!important;box-shadow:none!important;border:0!important}</style><style id="spectrim-pearl-edition">
+/* SpecTrim Pearl Edition — owner portal visual overrides */
+:root{--st-bg:#f5f6f3!important;--st-card:#fff!important;--st-border:#dce2db!important;--st-ink:#21372b!important;--st-accent:#9f8256!important;color-scheme:light!important}
+html,body{background:#f5f6f3!important;color:#26372b!important;font-family:'Source Sans 3','Segoe UI',Arial,sans-serif!important}
+header{background:#fff!important;color:#26372b!important;border-bottom:1px solid #dce2db!important;box-shadow:none!important}
+header h1,header h1 span{color:#264331!important}header .muted,header .st-portal-sub{color:#778277!important}
+header img{background:transparent!important;box-shadow:none!important;border-radius:0!important}
+.panel,.tile,.card,.stat,.owner-content,.owner-sidebar{background:#fff!important;color:#26372b!important;border:1px solid #dce2db!important;border-radius:6px!important;box-shadow:none!important}
+.owner-sidebar{position:sticky!important;top:16px!important}
+.side-kicker{color:#9b825c!important}.side-link{color:#425747!important;border-radius:4px!important}.side-link:hover,.side-link.active{background:#eef2ed!important;color:#23412f!important}
+.muted,.subtle,small{color:#68776b!important}h1,h2,h3,strong{color:#253c2e!important}
+input,select,textarea{background:#fff!important;color:#26382b!important;border:1px solid #d8dfd7!important;border-radius:5px!important}
+button{border-radius:5px!important}button.primary{background:#284a37!important;color:#fff!important}
+@media(max-width:760px){.owner-sidebar{position:static!important}}
+</style><style id="spectrim-owner-pearl-red">@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700;800&display=swap');:root{--st-bg:#f8f8f7!important;--st-green:#f8f8f7!important;--st-deep:#f8f8f7!important;--st-card:#fff!important;--st-sage:#687078!important;--st-ivory:#17191c!important;--st-bronze:#c8102e!important;--st-border:#e6e7e8!important;background:#f8f8f7!important;color:#17191c!important;color-scheme:light!important}html,body{background:#f8f8f7!important;color:#17191c!important;font-family:'Source Sans 3',Arial,sans-serif!important}body,button,input,select,textarea{font-family:'Source Sans 3',Arial,sans-serif!important}header{background:#fff!important;color:#17191c!important;border-bottom:1px solid #e6e7e8!important;box-shadow:none!important}.st-portal-brand img{background:transparent!important;border:0!important;box-shadow:none!important;object-fit:contain!important;width:95px!important;height:70px!important}.st-portal-brand h1{color:#17191c!important;letter-spacing:.08em!important}.st-portal-brand h1 span{color:#c8102e!important}.st-portal-sub{color:#687078!important}.panel,.tile,.owner-sidebar,.details,.record,.staff-item,.overview-head{background:#fff!important;color:#17191c!important;border:1px solid #e6e7e8!important;border-radius:10px!important;box-shadow:0 5px 24px #17191c09!important}.owner-sidebar{background:#fff!important}.side-kicker,.side-foot{color:#c8102e!important}.side-link{color:#17191c!important;border-radius:7px!important}.side-link:hover,.side-link:focus-visible{background:#fff2f4!important;color:#c8102e!important}.overview-head{background:#fff!important}.muted,.hint{color:#687078!important}.tile strong,.panel h2,.panel h3{color:#17191c!important}button{background:#c8102e!important;color:#fff!important;border:1px solid #c8102e!important;border-radius:8px!important}button.secondary{background:#fff!important;color:#c8102e!important;border-color:#e6e7e8!important}button.danger{background:#8c2337!important;color:#fff!important}input,select{background:#fff!important;color:#17191c!important;border:1px solid #d9dadd!important;border-radius:8px!important}.tag{background:#f2f2f2!important;color:#17191c!important}.tag.off{background:#ffeaea!important;color:#8c2337!important}button:focus-visible,input:focus-visible,select:focus-visible{outline:2px solid #c8102e!important;outline-offset:2px!important}</style></head>
+<body>
+<header>
+<div class="st-portal-brand"><img alt="SpecTrim emblem" src="assets/spectrim-st-transparent.png"/><div><h1>Spec<span>Trim</span></h1><div class="st-portal-sub">AUTOMOTIVE INTELLIGENCE · OWNER PORTAL</div></div></div>
+<div class="muted">Platform administration</div>
+</header>
+<main>
+<section class="panel hidden" id="config">
+<h2>Connect Supabase</h2>
+<p class="muted">Use only your public project URL and publishable/anon key. Never paste a secret or service-role key.</p>
+<label for="url">Project URL</label>
+<input autocomplete="url" id="url" placeholder="https://project.supabase.co"/>
+<label for="key">Public publishable key</label>
+<input autocomplete="off" id="key"/>
+<button id="saveConfig">Save connection</button>
+</section>
+<section class="panel hidden" id="login">
+<h2>Owner sign in</h2>
+<label for="email">Email</label>
+<input autocomplete="username" id="email" type="email"/>
+<label for="password">Password</label>
+<input autocomplete="current-password" id="password" type="password"/>
+<button id="signIn">Sign in</button>
+</section>
+<section class="hidden owner-layout" id="dashboard">
+<aside aria-label="Dashboard navigation" class="owner-sidebar">
+<div class="side-kicker">PLATFORM MANAGEMENT</div>
+<a class="side-link" href="#overview">◈   Overview</a>
+<a class="side-link" href="#manage-dealers">▤   Dealerships</a>
+<a class="side-link" href="#create-dealer">＋   Create group</a>
+<a class="side-link" href="#invite-staff">♧   Invite staff</a>
+<a class="side-link" href="#staff-directory">☷   Staff directory</a>
+<div class="side-foot">SPECTRIM <span>·</span> OWNER</div>
+</aside>
+<div class="owner-content">
+<div class="panel row overview-head" id="overview">
+<div>
+<h2>Platform overview</h2>
+<div class="muted" id="identity"></div>
+</div>
+<div class="stack"><button class="secondary" id="changePassword">Change password</button><button class="secondary" id="signOut">Sign out</button></div>
+</div>
+<div class="grid">
+<div class="tile"><div class="muted">Dealership groups</div><strong id="dealerships">—</strong></div>
+<div class="tile"><div class="muted">Branches</div><strong id="branches">—</strong></div>
+<div class="tile"><div class="muted">Stock records</div><strong id="stock">—</strong></div>
+<div class="tile"><div class="muted">Import batches</div><strong id="imports">—</strong></div>
+</div>
+<div class="panel" id="create-dealer">
+<h2>Create dealership group</h2>
+<form id="createDealerForm">
+<label for="dealerName">Group name</label>
+<input id="dealerName" maxlength="120" placeholder="Example Motor Group" required=""/>
+<button id="createDealer" type="submit">Create dealership</button>
+</form>
+<p aria-live="polite" class="status" id="createResult" role="status"></p>
+</div>
+<div class="panel" id="manage-dealers">
+<div class="row">
+<h2>Manage dealerships</h2>
+<button class="secondary" id="refresh">Refresh</button>
+</div>
+<p class="muted small">Expand a group to manage branches, activation and trial dates. Changes are saved directly to Supabase.</p>
+<div id="dealerList">Loading…</div>
+</div>
+<div class="panel" id="invite-staff">
+<h2>Invite staff</h2>
+<p class="muted small">Invitations are sent through the secure Supabase Edge Function. Only invite people who should have access to the selected dealership.</p>
+<form id="inviteForm">
+<label for="staffEmail">Staff email</label>
+<input autocomplete="email" id="staffEmail" placeholder="person@dealership.co.uk" required="" type="email"/>
+<label for="staffRole">Role</label>
+<select id="staffRole">
+<option value="group_admin">Dealer group administrator</option>
+<option value="branch_manager">Branch manager</option>
+<option value="sales_executive">Sales executive</option>
+</select>
+<label for="staffDealer">Dealership group</label>
+<select id="staffDealer" required=""></select>
+<label for="staffBranch">Branch</label>
+<select id="staffBranch"></select>
+<p class="hint">A branch is required for branch managers and sales executives.</p>
+<button id="inviteButton" type="submit">Send staff invitation</button>
+</form>
+<p aria-live="polite" class="status" id="inviteResult" role="status"></p>
+</div>
+<div class="panel" id="staff-directory">
+<div class="row">
+<h2>Staff directory</h2>
+<button class="secondary" id="refreshStaff" type="button">Refresh staff</button>
+</div>
+<p class="muted small">Staff visibility depends on your database read permissions. Invitations may not appear here until the recipient accepts.</p>
+<div class="staff-table muted" id="staffList">Loading…</div>
+</div>
+<div class="panel">
+<h2>Coming next</h2>
+<p class="muted">Scheduled stock-feed processing and subscription billing still require additional server-side work. Staff invitations require a successful live test before production use.</p>
+</div>
+</div>
+</section>
+<section class="panel connection-panel">
+<h3>Connection status</h3>
+<p aria-live="polite" class="status muted" id="status" role="status">Starting…</p>
+</section>
+</main>
+<script type="module">
+import {createClient} from 'https://esm.sh/@supabase/supabase-js@2';
+
+const $=id=>document.getElementById(id);
+const show=id=>['config','login','dashboard'].forEach(x=>$(x).classList.toggle('hidden',x!==id));
+let client=null,owner=null,dealers=[],branches=[],busy=false;
+
+function status(msg,error=false){
+ $('status').textContent=msg;
+ $('status').className='status '+(error?'error':'muted');
+}
+function message(id,msg,error=false){
+ $(id).textContent=msg;
+ $(id).className='status '+(error?'error':'ok');
+}
+function connect(){
+ const url='https://idkkqpxssxxtznddrujb.supabase.co',key='sb_publishable_zxLgavOcB9A8EIcOxoCsKQ_tRWVJKou';
+ if(!url||!key){show('config');status('Connection setup required.');return false}
+ try{
+  client=createClient(url,key,{auth:{persistSession:true,autoRefreshToken:true}});
+  return true;
+ }catch(e){show('config');status(e.message,true);return false}
+}
+$('saveConfig').onclick=()=>{
+ const url=$('url').value.trim(),key=$('key').value.trim();
+ if(!/^https:\/\/[a-z0-9-]+\.supabase\.co\/?$/i.test(url)||(!key.startsWith('sb_publishable_')&&!key.startsWith('eyJ'))){
+  status('Enter a valid URL and public key.',true);return;
+ }
+ localStorage.setItem('tc_owner_url',url.replace(/\/$/,''));
+ localStorage.setItem('tc_owner_key',key);
+ location.reload();
+};
+$('signIn').onclick=async()=>{
+ status('Signing in…');
+ try{
+  const {error}=await client.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+  $('password').value='';
+  if(error)throw error;
+  await checkOwner();
+ }catch(e){status(e.message,true)}
+};
+$('changePassword').onclick=async()=>{
+ const password=prompt('New password (at least 12 characters):');
+ if(password===null)return;
+ if(password.length<12){alert('Use at least 12 characters.');return;}
+ if(prompt('Confirm new password:')!==password){alert('Passwords do not match.');return;}
+ const {error}=await client.auth.updateUser({password});
+ alert(error?'Password change failed: '+error.message:'Password updated successfully.');
+};
+$('signOut').onclick=async()=>{
+ await client.auth.signOut();
+  localStorage.removeItem('SpecTrim_auth_session_v1');
+  owner=null;location.replace('./index.html');
+};
+async function checkOwner(){
+ const {data:{user},error}=await client.auth.getUser();
+ if(error||!user){location.replace('./index.html');return}
+ const {data:profile,error:pe}=await client.from('profiles').select('role,active').eq('user_id',user.id).maybeSingle();
+ if(pe){show('login');status('Cannot verify permissions: '+pe.message,true);return}
+ if(!profile||profile.role!=='owner'||profile.active!==true){
+  await client.auth.signOut();localStorage.removeItem('SpecTrim_auth_session_v1');location.replace('./index.html');return;
+ }
+ owner=user;show('dashboard');
+ $('identity').textContent=user.email+' · Active platform owner';
+ await load();
+}
+async function getRows(table,columns){
+ let all=[];
+ for(let offset=0;offset<10000;offset+=500){
+  const {data,error}=await client.from(table).select(columns).range(offset,offset+499);
+  if(error)throw new Error(table+': '+error.message);
+  all.push(...data);
+  if(data.length<500)return all;
+ }
+ throw new Error(table+': too many records for this portal view');
+}
+async function getCount(table){
+ const {count,error}=await client.from(table).select('*',{head:true,count:'exact'});
+ if(error)throw new Error(table+': '+error.message);
+ return count;
+}
+async function load(){
+ status('Loading owner overview…');
+ try{
+  const [ds,bs,stock,imports]=await Promise.all([
+   getRows('dealerships','id,name,active,subscription_status,trial_starts_at,trial_ends_at,created_at'),
+   getRows('branches','id,name,active,dealership_id'),
+   getCount('stock'),
+   getCount('import_batches')
+  ]);
+  dealers=ds.sort((a,b)=>a.name.localeCompare(b.name));
+  branches=bs;
+  $('dealerships').textContent=ds.length;
+  $('branches').textContent=bs.length;
+  $('stock').textContent=stock;
+  $('imports').textContent=imports;
+  renderDealers();
+  renderInviteChoices();
+  await loadStaff();
+  status('Signed in as authorised owner. Database reads completed successfully.');
+ }catch(e){status('Unable to load all data: '+e.message,true)}
+}
+function el(tag,cls,txt){
+ const node=document.createElement(tag);
+ if(cls)node.className=cls;
+ if(txt!==undefined)node.textContent=txt;
+ return node;
+}
+function button(text,cls,fn){
+ const b=el('button',cls,text);
+ b.type='button';b.onclick=fn;return b;
+}
+function field(label,type,value){
+ const wrap=el('label');
+ wrap.textContent=label;
+ const inp=el('input');
+ inp.type=type;inp.value=value??'';
+ wrap.append(inp);
+ return [wrap,inp];
+}
+function toLocalInput(iso){
+ if(!iso)return '';
+ const d=new Date(iso);
+ if(Number.isNaN(d.getTime()))return '';
+ const local=new Date(d.getTime()-d.getTimezoneOffset()*60000);
+ return local.toISOString().slice(0,16);
+}
+function renderDealers(){
+ const root=$('dealerList');
+ root.replaceChildren();
+ if(!dealers.length){root.textContent='No dealerships yet.';return}
+ for(const d of dealers){
+  const block=el('div','record');
+  const head=el('div','row');
+  const left=el('div');
+  left.append(el('h3','',d.name),el('div','muted small','ID: '+d.id));
+  const right=el('div','stack');
+  right.append(
+   el('span','tag'+(d.active?'':' off'),d.active?'Active':'Inactive'),
+   el('span','tag',branches.filter(b=>b.dealership_id===d.id).length+' branches')
+  );
+  head.append(left,right);
+  block.append(head);
+  const details=el('details');
+  details.className='details';
+  const summary=el('summary','','Manage group and branches');
+  details.append(summary);
+  const form=el('form');
+  const [nameWrap,name]=field('Dealership name','text',d.name);
+  name.maxLength=120;name.required=true;
+  const activeWrap=el('label');
+  const active=el('input');
+  active.type='checkbox';active.style.width='auto';active.checked=!!d.active;
+  activeWrap.append(active,document.createTextNode(' Dealership active'));
+  const [startWrap,start]=field('Trial start (optional)','datetime-local',toLocalInput(d.trial_starts_at));
+  const [endWrap,end]=field('Trial end (optional)','datetime-local',toLocalInput(d.trial_ends_at));
+  const [subWrap,sub]=field('Subscription status (existing value)','text',d.subscription_status||'');
+  sub.readOnly=true;
+  subWrap.append(el('div','muted small','Billing is not yet connected. This field is read-only.'));
+  const note=el('p','small muted','Suspending a dealership changes its active flag. Access enforcement must be verified separately in database policies.');
+  const save=el('button','','Save group changes');
+  save.type='submit';
+  form.append(nameWrap,activeWrap,startWrap,endWrap,subWrap,note,save);
+  const result=el('p','status small');
+  form.append(result);
+  form.onsubmit=async e=>{
+   e.preventDefault();
+   const newName=name.value.trim().replace(/\s+/g,' ');
+   if(!newName||newName.length>120){result.textContent='Enter a valid name.';return}
+   if(start.value&&end.value&&new Date(start.value)>new Date(end.value)){
+    result.textContent='Trial end must be after trial start.';return;
+   }
+   if(!confirm('Save changes to '+d.name+'?'))return;
+   save.disabled=true;result.textContent='Saving…';
+   try{
+    const updates={
+     name:newName,active:active.checked,
+     trial_starts_at:start.value?new Date(start.value).toISOString():null,
+     trial_ends_at:end.value?new Date(end.value).toISOString():null
+    };
+    const {data,error}=await client.from('dealerships').update(updates).eq('id',d.id).select('id').single();
+    if(error)throw error;
+    if(!data)throw new Error('No row updated');
+    await load();
+   }catch(err){result.textContent='Save failed: '+err.message}
+   finally{save.disabled=false}
+  };
+  details.append(form);
+  const branchTitle=el('h3','','Branches');
+  details.append(branchTitle);
+  const assigned=branches.filter(b=>b.dealership_id===d.id);
+  if(!assigned.length)details.append(el('p','muted small','No branches assigned.'));
+  for(const br of assigned){
+   const row=el('div','record row');
+   const label=el('div');
+   label.append(el('strong','',br.name),el('div','muted small',br.active?'Active':'Inactive'));
+   const actions=el('div','stack');
+   actions.append(
+    button('Rename','secondary',async()=>{
+     const value=prompt('Branch name',br.name);
+     if(value===null)return;
+     const newName=value.trim();
+     if(!newName||newName.length>120){alert('Enter a valid branch name.');return}
+     await changeBranch(br,{name:newName});
+    }),
+    button(br.active?'Deactivate':'Activate','secondary',async()=>{
+     if(confirm((br.active?'Deactivate':'Activate')+' branch '+br.name+'?'))
+      await changeBranch(br,{active:!br.active});
+    })
+   );
+   row.append(label,actions);
+   details.append(row);
+  }
+  const create=el('form');
+  const [branchWrap,branchName]=field('New branch name','text','');
+  branchName.required=true;branchName.maxLength=120;
+  const add=el('button','','Add branch');add.type='submit';
+  const branchResult=el('p','small status');
+  create.append(branchWrap,add,branchResult);
+  create.onsubmit=async e=>{
+   e.preventDefault();
+   const name=branchName.value.trim();
+   if(!name)return;
+   add.disabled=true;branchResult.textContent='Adding branch…';
+   try{
+    const {data,error}=await client.from('branches').insert({name,dealership_id:d.id,active:true}).select('id').single();
+    if(error)throw error;
+    if(!data)throw new Error('Branch not created');
+    await load();
+   }catch(err){branchResult.textContent='Unable to add branch: '+err.message}
+   finally{add.disabled=false}
+  };
+  details.append(create);
+  block.append(details);
+  root.append(block);
+ }
+}
+async function changeBranch(br,updates){
+ try{
+  const {data,error}=await client.from('branches').update(updates).eq('id',br.id).select('id').single();
+  if(error)throw error;
+  if(!data)throw new Error('No row updated');
+  await load();
+ }catch(e){alert('Branch change failed: '+e.message)}
+}
+$('createDealerForm').onsubmit=async e=>{
+ e.preventDefault();
+ const name=$('dealerName').value.trim().replace(/\s+/g,' ');
+ if(!name)return;
+ const matches=dealers.filter(d=>d.name.toLowerCase()===name.toLowerCase());
+ if(matches.length&&!confirm('A dealership with this name already exists. Create another anyway?'))return;
+ const b=$('createDealer');b.disabled=true;
+ message('createResult','Creating…');
+ try{
+  const {data,error}=await client.from('dealerships').insert({name,active:true}).select('id,name').single();
+  if(error)throw error;
+  $('dealerName').value='';
+  message('createResult','Created: '+data.name);
+  await load();
+ }catch(err){message('createResult','Unable to create: '+err.message,true)}
+ finally{b.disabled=false}
+};
+function renderInviteChoices(){
+ const dealer=$('staffDealer'),old=dealer.value;
+ dealer.replaceChildren();
+ for(const d of dealers.filter(d=>d.active)){
+  const o=el('option','',d.name);
+  o.value=d.id;dealer.append(o);
+ }
+ if([...dealer.options].some(o=>o.value===old))dealer.value=old;
+ renderBranchChoices();
+}
+function renderBranchChoices(){
+ const sel=$('staffBranch'),old=sel.value,role=$('staffRole').value;
+ sel.replaceChildren();
+ const none=el('option','','Select a branch');
+ none.value='';sel.append(none);
+ for(const b of branches.filter(b=>b.dealership_id===$('staffDealer').value&&b.active)){
+  const o=el('option','',b.name);
+  o.value=b.id;sel.append(o);
+ }
+ if([...sel.options].some(o=>o.value===old))sel.value=old;
+ const needed=role!=='group_admin';
+ sel.required=needed;sel.disabled=!needed;
+ if(!needed)sel.value='';
+}
+$('staffDealer').onchange=renderBranchChoices;
+$('staffRole').onchange=renderBranchChoices;
+
+// Corrected staff invitation integration
+$('inviteForm').onsubmit=async e=>{
+ e.preventDefault();
+ if(!owner)return message('inviteResult','Sign in first.',true);
+
+ const email=$('staffEmail').value.trim().toLowerCase();
+ const role=$('staffRole').value;
+ const dealershipId=$('staffDealer').value;
+ const branchId=$('staffBranch').value;
+
+ if(!dealershipId||(role!=='group_admin'&&!branchId)){
+  return message('inviteResult','Select a dealership and branch.',true);
+ }
+
+ const apiRole={
+  group_admin:'dealer_admin',
+  branch_manager:'branch_manager',
+  sales_executive:'salesperson'
+ }[role];
+
+ if(!apiRole){
+  return message('inviteResult','Invalid staff role.',true);
+ }
+
+ const chosen=dealers.find(d=>d.id===dealershipId);
+ if(!confirm('Invite '+email+' as '+role.replaceAll('_',' ')+' to '+(chosen?.name||'the selected dealership')+'?'))return;
+
+ const btn=$('inviteButton');
+ btn.disabled=true;
+ message('inviteResult','Sending invitation…');
+
+ try{
+  const {data,error}=await client.functions.invoke('invite-staff',{
+   body:{
+    email,
+    role:apiRole,
+    dealership_id:dealershipId,
+    branch_id:role==='group_admin'?null:branchId
+   }
+  });
+
+  if(error){
+   let detail=error.message;
+   try{
+    const payload=await error.context?.json();
+    detail=payload?.error||detail;
+   }catch{}
+   throw new Error(detail);
+  }
+
+  if(data?.error)throw new Error(data.error);
+
+  message('inviteResult','Invitation request accepted. Check the recipient’s inbox and Supabase Auth users.');
+  $('staffEmail').value='';
+  await loadStaff();
+ }catch(err){
+  message('inviteResult','Invitation failed: '+err.message,true);
+ }finally{
+  btn.disabled=false;
+ }
+};
+
+async function loadStaff(){
+ const root=$('staffList');
+ root.textContent='Loading staff…';
+ try{
+  const {data,error}=await client.from('profiles')
+   .select('user_id,email,display_name,role,active,dealership_id,branch_id')
+   .order('email',{ascending:true}).limit(300);
+  if(error)throw error;
+  root.replaceChildren();
+  if(!data?.length){root.textContent='No visible staff profiles.';return}
+  for(const person of data){
+   const item=el('div','staff-item');
+   item.append(el('strong','',person.display_name||person.email||'Unnamed account'));
+   item.append(el('div','small muted',(person.email||'')+' · '+person.role+' · '+(person.active?'Active':'Inactive')));
+   const d=dealers.find(x=>x.id===person.dealership_id);
+   const b=branches.find(x=>x.id===person.branch_id);
+   if(d||b)item.append(el('div','small muted',[d?.name,b?.name].filter(Boolean).join(' / ')));
+   root.append(item);
+  }
+ }catch(err){
+  root.textContent='Staff directory unavailable: '+err.message+' (invitations can still be tested).';
+ }
+}
+$('refreshStaff').onclick=loadStaff;
+$('refresh').onclick=load;
+async function startUnified(){
+ if(!connect())return;
+ try{
+  const saved=JSON.parse(localStorage.getItem('SpecTrim_auth_session_v1')||'null');
+  if(!saved?.access_token||!saved?.refresh_token){location.replace('./index.html');return;}
+  const {error}=await client.auth.setSession({access_token:saved.access_token,refresh_token:saved.refresh_token});
+  if(error)throw error;
+  await checkOwner();
+ }catch(e){status('Session expired. Returning to sign in.',true);location.replace('./index.html');}
+}
+startUnified();
+</script>
+</body>
+</html>

@@ -1,0 +1,12 @@
+SpecTrim dealership UI package - 19 October 2026
+
+1. Extract this ZIP to a folder on your computer.
+2. Upload the CONTENTS of that folder (not the ZIP itself) to the root of your SpecTrim GitHub repository.
+3. Verify GitHub shows index.html, owner.html, assets/, app/, and .github/ at their correct paths.
+4. Commit changes and refresh GitHub Pages with Ctrl+F5.
+5. Check all three sales buttons, saved searches, owner login and mobile layout.
+6. Rebuild the Android APK from GitHub Actions and reinstall it; APKs do not automatically update.
+
+IMPORTANT: This package is a visual refresh of the supplied codebase, NOT certification that stock integration, Supabase RLS, authentication, dealer onboarding, role permissions, or live production data have passed end-to-end testing. Existing owner.html logic is preserved, not rewritten. The showcase/demo mode remains in place. Do not treat this as a production go-live approval until backend/security and device testing are complete.
+
+Brand assets: assets/spectrim-car-check.png (transparent logo mark); assets/spectrim-logo-full.png (full mark + wordmark); assets/spectrim-app-light.png and spectrim-app-dark.png (square icons). All images are bundled locally for GitHub Pages and Android.
